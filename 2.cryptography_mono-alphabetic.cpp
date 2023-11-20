@@ -1,27 +1,52 @@
 #include <stdio.h>
+#include <string.h>
 #include <ctype.h>
 
-void encrypt(char *message, char *cipherMap) {
-    while (*message != '\0') {
-        if (isalpha(*message)) {
-            char base = isupper(*message) ? 'A' : 'a';
-            *message = cipherMap[*message - base];
+#define ALPHABET_SIZE 26
+
+// Function to perform monoalphabetic substitution encryption
+void monoalphabeticEncrypt(char text[], const char key[]) {
+    int i;
+
+    for (i = 0; text[i] != '\0'; i++) {
+        if (isalpha(text[i])) {
+            char base = isupper(text[i]) ? 'A' : 'a';
+            text[i] = key[text[i] - base];
         }
-        message++;
+    }
+}
+
+// Function to perform monoalphabetic substitution decryption
+void monoalphabeticDecrypt(char text[], const char key[]) {
+    int i, j;
+
+    for (i = 0; text[i] != '\0'; i++) {
+        if (isalpha(text[i])) {
+            char base = isupper(text[i]) ? 'A' : 'a';
+            for (j = 0; j < ALPHABET_SIZE; j++) {
+                if (key[j] == text[i]) {
+                    text[i] = j + base;
+                    break;
+                }
+            }
+        }
     }
 }
 
 int main() {
-    char message[100];
-    printf("Enter a message to encrypt: ");
-    fgets(message, sizeof(message), stdin);
+    char plaintext[100];
+    const char key[ALPHABET_SIZE + 1] = "XPMGTDHLYONZBWEARKJUFSCIQV"; // Example key
 
-    char cipherMap[] = "ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba";
+    printf("Enter the plaintext: ");
+    fgets(plaintext, sizeof(plaintext), stdin);
 
-    encrypt(message, cipherMap);
+    // Encrypting the plaintext
+    monoalphabeticEncrypt(plaintext, key);
+    printf("Encrypted text: %s\n", plaintext);
 
-    printf("Encrypted message: %s", message);
+    // Decrypting the encrypted text
+    monoalphabeticDecrypt(plaintext, key);
+    printf("Decrypted text: %s\n", plaintext);
 
     return 0;
 }
-

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-// Function to encrypt the plaintext using the one-time pad Vigenère cipher
+// Function to encrypt the plaintext using the one-time pad VigenÃ¨re cipher
 void encrypt(char plaintext[], int key[], int n) {
     for (int i = 0; i < n; i++) {
         if (plaintext[i] != ' ') {
@@ -11,7 +11,7 @@ void encrypt(char plaintext[], int key[], int n) {
     }
 }
 
-// Function to decrypt the ciphertext using the one-time pad Vigenère cipher
+// Function to decrypt the ciphertext using the one-time pad VigenÃ¨re cipher
 void decrypt(char ciphertext[], int key[], int n) {
     for (int i = 0; i < n; i++) {
         if (ciphertext[i] != ' ') {

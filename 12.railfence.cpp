@@ -45,7 +45,7 @@ void decryptRailFence(char* encryptedMessage, int rails)
     printf("Decrypted message: %s\n", decryptedMessage);
 }
 int main() {
-    char message[] = "veneela";
+    char message[] = "venky";
     int rails=2;
 
     printf("Original message: %s\n", message);

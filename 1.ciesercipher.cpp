@@ -1,31 +1,38 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
-void encrypt(char *message, int key) {
-    while (*message != '\0') {
-        if (isalpha(*message)) {
-            char base = isupper(*message) ? 'A' : 'a';
-            *message = (char)(((int)(*message - base + key) % 26) + base);
-        }
-        message++;
+#include<stdio.h>
+#include<ctype.h>
+#define ALPHABET_SIZE 26
+void caesarCipher(char message[], int key)
+{
+	
+	int i=0;
+	char ch;
+	while(message[i]!='\0')
+	{
+    	ch=message[i];
+    	if(isalpha(ch))
+		{
+    		char base=islower(ch)?'a':'A';
+    		message[i]=(ch-base+key)%
+			ALPHABET_SIZE+base;
+		} 
+		   i++;
     }
 }
 
 int main() {
     char message[100];
+    int key, i;
+
     printf("Enter a message to encrypt: ");
     fgets(message, sizeof(message), stdin);
 
-    // Iterate through keys 1 to 25
-    for (int key = 1; key <= 25; key++) {
-        char encryptedMessage[100];
-        strcpy(encryptedMessage, message);
-        encrypt(encryptedMessage, key);
-        printf("Key %d: %s\n", key, encryptedMessage);
-    }
+    printf("Enter the key value (1-25): ");
+    scanf("%d", &key);
+
+    
+    caesarCipher(message, key);
+
+    printf("Encrypted message: %s\n", message);
 
     return 0;
 }
-

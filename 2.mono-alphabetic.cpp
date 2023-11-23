@@ -1,52 +1,43 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-
-#define ALPHABET_SIZE 26
-
-// Function to perform monoalphabetic substitution encryption
-void monoalphabeticEncrypt(char text[], const char key[]) {
+void encryptMonoalphabetic(char message[], char key[]) 
+{
     int i;
+    char encryptedMessage[1000];
 
-    for (i = 0; text[i] != '\0'; i++) {
-        if (isalpha(text[i])) {
-            char base = isupper(text[i]) ? 'A' : 'a';
-            text[i] = key[text[i] - base];
+    for (i = 0; i < strlen(message); i++) 
+	{
+        char currentChar = message[i];
+
+        if (isupper(currentChar)) 
+		{
+            encryptedMessage[i] = key[currentChar - 'A'];
+        }
+        else if (islower(currentChar)) 
+		{
+            encryptedMessage[i] = tolower(key[currentChar - 'a']);
+        }     
+        else 
+		{
+            encryptedMessage[i] = currentChar;
         }
     }
+    encryptedMessage[i] = '\0';
+    printf("Encrypted message: %s\n", encryptedMessage);
 }
-
-// Function to perform monoalphabetic substitution decryption
-void monoalphabeticDecrypt(char text[], const char key[]) {
-    int i, j;
-
-    for (i = 0; text[i] != '\0'; i++) {
-        if (isalpha(text[i])) {
-            char base = isupper(text[i]) ? 'A' : 'a';
-            for (j = 0; j < ALPHABET_SIZE; j++) {
-                if (key[j] == text[i]) {
-                    text[i] = j + base;
-                    break;
-                }
-            }
-        }
-    }
-}
-
-int main() {
-    char plaintext[100];
-    const char key[ALPHABET_SIZE + 1] = "XPMGTDHLYONZBWEARKJUFSCIQV"; // Example key
-
-    printf("Enter the plaintext: ");
-    fgets(plaintext, sizeof(plaintext), stdin);
-
-    // Encrypting the plaintext
-    monoalphabeticEncrypt(plaintext, key);
-    printf("Encrypted text: %s\n", plaintext);
-
-    // Decrypting the encrypted text
-    monoalphabeticDecrypt(plaintext, key);
-    printf("Decrypted text: %s\n", plaintext);
-
+int main() 
+{
+    char message[1000];
+    char key[] = "ZYXWVUTSRQPONMLKJIHGFEDCBA"; 
+   
+    printf("Enter the message to encrypt: ");
+    fgets(message, sizeof(message), stdin);
+ 
+    if (strlen(message) > 0 && message[strlen(message) - 1] == '\n') 
+	{
+        message[strlen(message) - 1] = '\0';
+    }  
+    encryptMonoalphabetic(message, key);
     return 0;
 }

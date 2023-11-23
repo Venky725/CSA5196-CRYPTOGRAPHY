@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-
 void encryptRailFence(char* message, int rails) 
 {
     int messageLength = strlen(message);
@@ -45,7 +44,7 @@ void decryptRailFence(char* encryptedMessage, int rails)
     printf("Decrypted message: %s\n", decryptedMessage);
 }
 int main() {
-    char message[] = "venky";
+    char message[] = "veneela";
     int rails=2;
 
     printf("Original message: %s\n", message);

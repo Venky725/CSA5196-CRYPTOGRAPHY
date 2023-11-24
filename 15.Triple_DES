@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+static const int initial_permutation[] = {
+
+};
+
+static const uint64_t key[] = {0x0123456789ABCDEF, 0xFEDCBA9876543210};
+
+void initialPermutation(uint64_t *data) {
+ 
+}
+void encryptDES(uint64_t *data, const uint64_t *subkey) {
+ 
+}
+
+int main() { 
+    uint64_t data;
+
+    for (int round = 1; round <= 3; ++round) {
+
+        printf("Enter plaintext (8 characters): ");
+        if (scanf("%8s", plaintext) != 1) {
+            fprintf(stderr, "Error reading input.\n");
+            return 1;
+        }
+
+        memcpy(&data, plaintext, sizeof(uint64_t));
+
+        initialPermutation(&data);
+
+        encryptDES(&data, &key[0]);
+        encryptDES(&data, &key[1]);
+        encryptDES(&data, &key[0]);
+
+        printf("\nRound %d:\n", round);
+        printf("Plaintext: %s\n", plaintext);
+        printf("Encrypted: %016llx\n", data);
+
+        encryptDES(&data, &key[0]);
+        encryptDES(&data, &key[1]);
+        encryptDES(&data, &key[0]);
+
+        printf("Decrypted: %s\n", (char *)&data);
+
+        while (getchar() != '\n');
+    }
+
+    return 0;
+}
